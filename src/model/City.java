@@ -1,113 +1,129 @@
 package model;
+
 import java.util.LinkedList;
 import java.util.List;
-    
+
 /**
  * A collection of items in the city.
  * 
- * @author David J. Barnes and Michael Kolling. Modified A.Morelle
- * @version 2013.12.30
+ * @author David J. Barnes and Michael Kolling. Modified A.Morelle, Modified
+ *         Bohao LI
+ * @version 2017.03.23
  */
-public class City
-{
-    private List<Item> items;
-    private int width;
-    private int height;
-    
+public class City {
+
     private static final int DEFAULT_WIDTH = 35;
     private static final int DEFAULT_HEIGHT = 35;
 
+    private List<Item> items;
+    private int width;
+    private int height;
+
     /**
      * Constructor for objects of class City
-     * @param width The city's width.
-     * @param height The city's height.
+     * 
+     * @param width
+     *            The city's width.
+     * @param height
+     *            The city's height.
      */
-    public City(int width, int height)
-    {
-        if(width < 1) {
-            throw new IllegalArgumentException(
-                        "Width must be positive: " +
-                        width);
-        }
-        if(height < 1) {
-            throw new IllegalArgumentException(
-                        "Height must be positive: " +
-                        height);
-        }
+    public City(int width, int height) {
+        if (width < 1)
+            throw new IllegalArgumentException("Width must be positive: " + width);
+        if (height < 1)
+            throw new IllegalArgumentException("Height must be positive: " + height);
+
         this.width = width;
         this.height = height;
         items = new LinkedList<Item>();
     }
-    
+
     /**
      * Create a city of default size.
      */
-    public City()
-    {
+    public City() {
         this(DEFAULT_WIDTH, DEFAULT_HEIGHT);
     }
 
     /**
      * Add the given item to the city's collection.
-     * @param item The item to be added.
+     * 
+     * @param item
+     *            The item to be added.
      */
-    public void addItem(Item item)
-    {
-        if(items.contains(item)) {
-            throw new IllegalArgumentException(
-                item + " already recorded in the city.");
-        }
+    public void addItem(Item item) {
+        if (items.contains(item))
+            throw new IllegalArgumentException(item + " already recorded in the city.");
         items.add(item);
     }
 
     /**
-	 * @return the items
-	 */
-	public List<Item> getItems() {
-		return items;
-	}
-
-	/**
-	 * @param items the items to set
-	 */
-	public void setItems(List<Item> items) {
-		this.items = items;
-	}
-
-	/**
-     * Remove the given item from the city's collection.
-     * @param item The item to be removed.
+     * @return the items.
      */
-    public void removeItem(Item item)
-    {
-        if(!items.remove(item)) {
-            throw new IllegalArgumentException(
-                        item + " is not in the city.");
-        }
+    public List<Item> getItems() {
+        return items;
     }
-        
+
+    /**
+     * @param items
+     *            the items to set.
+     */
+    public void setItems(List<Item> items) {
+        this.items = items;
+    }
+
+    /**
+     * Remove the given item from the city's collection.
+     * 
+     * @param item
+     *            The item to be removed.
+     */
+    public void removeItem(Item item) {
+        if (!items.remove(item))
+            throw new IllegalArgumentException(item + " is not in the city.");
+    }
+
+    /**
+     * @return the number of taxis in the city.
+     */
+    public int getNbTaxis() {
+        int count = 0;
+        for (Object o : items)
+            if (o instanceof Taxi)
+                count++;
+        return count;
+    }
+
+    /**
+     * @return the number of shuttles in the city
+     */
+    public int getNbShuttles() {
+        int count = 0;
+        for (Object o : items)
+            if (o instanceof Shuttle)
+                count++;
+        return count;
+    }
+
     /**
      * @return A string representation of the city.
      */
     @Override
-    public String toString()
-    {
+    public String toString() {
         return "City size " + width + " by " + height;
     }
-    
+
     /**
      * @return The width.
      */
-    public int getWidth()
-    {
+    public int getWidth() {
         return width;
     }
-    
+
     /**
      * @return The height.
      */
-    public int getHeight()
-    {
+    public int getHeight() {
         return height;
     }
 }
